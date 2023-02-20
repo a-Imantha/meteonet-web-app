@@ -144,8 +144,8 @@ def fig2img_overlap(img, overlap):
     fig, ax = plt.subplots()
     ax.set_axis_off()  # remove axis ticks and labels
     fig.tight_layout(pad=0)
-    ax.pcolormesh(img, alpha=0.3)
-    ax.pcolormesh(overlap, cmap="hot", alpha=0.7)
+    ax.imshow(img, alpha=0.3)
+    ax.imshow(overlap, cmap="hot", alpha=0.7)
 
     fig.savefig(buf)
     buf.seek(0)
