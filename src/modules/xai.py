@@ -127,17 +127,20 @@ def create_explainable_ai_page():
                  Integrated Gradients plotted on top of the input sequence is displayed below. 
                  """)
         with st.expander("IG Results", expanded=True):
+            col1, col2 = st.columns(2)
             plot_seq_with_overlap(input_seq_images, ig_seq)
 
             # Log Sum of pixels
             fig, ax = plt.subplots(figsize=(15, 10))
-            plt.plot(expected_files[:-1], list(np.log(ig_sum_arr)), marker = 'o')
+            with plt.style.context('seaborn-darkgrid'):
+                plt.plot(expected_files[:-1], list(np.log(ig_sum_arr)), marker = 'o')
             plt.xticks(rotation=90)
             plt.xlabel('Input sequence time')
             plt.ylabel('log(Gradient value sum)')
             plt.title('Integrated Gradient Sum in log scale for each image in input sequence')
             print("Just before pyplot")
-            st.pyplot(fig)
+            col1.pyplot(fig)
+            col2.write("Plot to be added!")
 def fig2img_overlap(img, overlap):
     import io
     buf = io.BytesIO()
