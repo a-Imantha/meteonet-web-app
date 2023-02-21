@@ -6,6 +6,7 @@ from processing.utils import process_input_seq
 import matplotlib.pyplot as plt
 import torch.nn as nn
 import segmentation_models_pytorch as smp
+import seaborn as sns
 from matplotlib.colors import ListedColormap
 from torch import optim
 SAMPLE_SEQUENCES = {
@@ -34,7 +35,7 @@ def create_explainable_ai_page():
     st.write("""
         You can select a sample datetime stamp on which the data is recorded and click download. After downloading extract the downloaded zip folder and re-upload the list of images using the file uploader.
         """)
-
+    sns.set()
     selected_sequence = st.selectbox("Select a sequence", list(SAMPLE_SEQUENCES.keys()))
     zip_file_path = SAMPLE_SEQUENCES[selected_sequence]
     with open(zip_file_path, "rb") as f:
@@ -127,9 +128,9 @@ def create_explainable_ai_page():
                  Integrated Gradients plotted on top of the input sequence is displayed below. 
                  """)
         with st.expander("IG Results", expanded=True):
-            col1, col2 = st.columns(2)
             plot_seq_with_overlap(input_seq_images, ig_seq)
 
+            col1, col2 = st.columns(2)
             # Log Sum of pixels
             fig, ax = plt.subplots(figsize=(15, 10))
             with plt.style.context('seaborn-darkgrid'):
